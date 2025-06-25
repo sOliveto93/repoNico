@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="cuotas.model.domain.factura.FacturaItem" table="cbr_item" catalog="cuotas">
+        <id name="id" type="java.lang.Integer">
+            <column name="id_cbr_item" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="factura" class="cuotas.model.domain.factura.Factura" fetch="select" lazy="false">
+            <column name="id_cbr_fc" not-null="true" />
+        </many-to-one>
+        <many-to-one name="facturaItemTipo" class="cuotas.model.domain.factura.FacturaItemTipo" fetch="select">
+            <column name="id_cbr_tipos" not-null="true" />
+        </many-to-one>
+        <property name="nro" type="int">
+            <column name="Nro" not-null="true" />
+        </property>
+        <property name="codigo" type="int">
+            <column name="codigo" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="Descri" />
+        </property>
+        <property name="cantidad" type="java.lang.Integer">
+            <column name="cantidad" />
+        </property>
+        <property name="precio" type="java.lang.Double">
+            <column name="precio" precision="22" scale="0" />
+        </property>
+        <!-- lazy="true" -->
+        <set name="pagos" inverse="true"  table="persona_cuotas" fetch="select" order-by="idgrupo, fecha" cascade="save-update">
+            <key>
+                <column name="id_cbr_item" />
+            </key>
+            <one-to-many class="cuotas.model.domain.datos.Pago" />
+        </set>
+         
+    </class>
+</hibernate-mapping>

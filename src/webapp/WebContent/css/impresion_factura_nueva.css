@@ -1,0 +1,10 @@
+div.sin_block  { display: none; }
+div.print_block { display: block;font-family: "VERDANA"; font-size: 13pt; font-weight:110; letter-spacing:4px}
+div.print_block2 { display: block;border: 1px solid black;  box-sizing: border-box;}
+
+@page { 
+        size: landscape;
+    };
+body {
+  padding: 50px;
+}

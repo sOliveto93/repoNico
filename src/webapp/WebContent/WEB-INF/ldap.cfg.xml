@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ldap-configuration>
+		<context-factory>com.sun.jndi.ldap.LdapCtxFactory</context-factory>		
+		<!-- Se puede poner mas de 1 separdo por espacios -->
+		<url>ldap://10.3.0.22:389/ ldap://10.3.0.23:389/</url>		
+		<security-auth>simple</security-auth>
+		<!-- <context-name>ou=qmail,dc=unla,dc=edu,dc=ar</context-name>-->
+		<context-name>ou=users,ou=unla.edu.ar,ou=qmail,dc=unla,dc=edu,dc=ar</context-name>
+		<!-- Datos de conexion con permisos para la lectura de los atributos especificados -->
+		<security-user></security-user>
+		<security-password></security-password>
+		<base-dn>ou=users,ou=unla.edu.ar,ou=qmail,dc=unla,dc=edu,dc=ar</base-dn>
+		
+		<!-- ObjectClass por el cual se hara el filtrado -->
+		<filter-object>qmailUser</filter-object>
+				
+		<!-- Atributos a traer para lso clientes -->
+		<attr-name>cn</attr-name>
+		<attr-username>uid</attr-username>
+		<attr-password>userPassword</attr-password>
+		
+		<!--  
+			Los atributos alternativos, varian en cada sistema, y se declaran asi :
+			<attr-alts>
+					<attr-alt id="tipoUsuario">cursosdepPrivilegios</attr-alt>
+					<attr-alt id="cuentaBloqueada">cursosdepBloqueada</attr-alt>
+			</attr-alts>
+			Esto permite despues extraer desde el hashMap de LdapConfig con el key que le pongamos como id
+		-->
+		<!-- <attr-type>cursosdepPrivilegios</attr-type> -->	
+		<!-- 
+		<attr-alts>
+			<attr-alt id="tipoUsuario">cursosdepPrivilegios</attr-alt>
+			<attr-alt id="otraCosa">zaraza</attr-alt>			
+		</attr-alts>
+		-->
+</ldap-configuration>

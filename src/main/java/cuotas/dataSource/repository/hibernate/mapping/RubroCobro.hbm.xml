@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="cuotas.model.domain.factura.RubroCobro" table="cbr_rubro" catalog="cuotas">
+        <id name="id" type="java.lang.Integer">
+            <column name="id_cbr_rubro" />
+            <generator class="identity" />
+        </id>
+        <property name="codigo" type="java.lang.Integer">
+            <column name="codigo" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descri" />
+        </property>
+		<component name="estado" class="common.model.domain.datos.Estado">
+	   		<property name="valor" type="string">
+	        	<column name="estado" not-null="true" />
+    	    </property>
+   	    </component>
+        <set name="facturaItemTipo" inverse="true" lazy="true" table="cbr_tipos" fetch="select">
+            <key>
+                <column name="id_cbr_rubro" not-null="true" />
+            </key>
+            <one-to-many class="cuotas.model.domain.factura.FacturaItemTipo" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="common.model.domain.util.Evento" table="g_auditoria" catalog="cuotas">
+            <id name="id" type="java.lang.Long">
+            	<column name="id" />
+            	<generator class="identity" />
+        	</id>
+            <component name="fecha" class="common.model.domain.fecha.Fecha">
+        		<property name="fecha" type="date">
+        		 <column name="FECHA"  not-null="true" />
+        		</property>
+    		</component>
+            <property name="usuario" type="string">
+                <column name="OPERADOR" length="45" />
+            </property>
+            <property name="descripcion" type="string">
+                <column name="DESCRI" />
+            </property>
+    </class>
+</hibernate-mapping>

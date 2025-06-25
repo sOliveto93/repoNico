@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="common.model.domain.datosPersonales.TipoDocumento" table="tipo_documento">
+        <id name="id" type="java.lang.Integer">
+            <column name="idtipodocumento" />
+            <generator class="native" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" unique="true" />
+        </property>
+        <property name="abreviacion" type="string">
+            <column name="abreviacion" length="5" not-null="true" unique="true" />
+        </property>
+        <property name="mascara" type="string">
+            <column name="mascara" length="45" not-null="true" unique="true" />
+        </property>
+        <component name="estado" class="common.model.domain.datos.Estado" >
+        	<property name="valor" type="string">
+            	<column name="estado" length="10" not-null="true" />
+        	</property>        	
+    	</component>        
+    </class>
+   	<query name="buscaTipoDocumento"><![CDATA[
+		Select td from TipoDocumento td where td.nombre like :nombre or td.abreviacion like :abreviacion
+	]]></query>
+    
+</hibernate-mapping>

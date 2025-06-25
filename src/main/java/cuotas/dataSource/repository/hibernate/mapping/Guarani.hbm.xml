@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="cuotas.model.domain.interfaces.Guarani" table="guarani" catalog="cuotas">
+        <id name="id" type="java.lang.Long">
+            <column name="idGuarani" />
+            <generator class="identity" />
+        </id>
+	  	<property name="UA" type="string">
+			<column name="UA" />
+		</property>
+		<property name="n_inscripcion" type="string">
+			<column name="n_inscripcion" />
+		</property>
+		<property name="legajo" type="string">
+			<column name="legajo" />
+		</property>
+		<property name="tipo_documento" type="string">
+			<column name="tipo_documento" />
+		</property>
+		<property name="nro_documento" type="string">
+			<column name="nro_documento" />
+		</property>
+		<property name="apellido" type="string">
+			<column name="apellido" />
+		</property>
+		<property name="nombres" type="string">
+			<column name="nombres" />
+		</property>
+		<property name="calle" type="string">
+			<column name="calle" />
+		</property>
+		<property name="numero" type="string">
+			<column name="numero" />
+		</property>
+		<property name="piso" type="string">
+			<column name="piso" />
+		</property>
+		<property name="dpto" type="string">
+			<column name="dpto" />
+		</property>
+		<property name="cp" type="string">
+			<column name="cp" />
+		</property>
+		<property name="telefono" type="string">
+			<column name="telefono" />
+		</property>
+		<property name="partido" type="string">
+			<column name="partido" />
+		</property>
+		<property name="provincia" type="string">
+			<column name="provincia" />
+		</property>
+		<property name="pais" type="string">
+			<column name="pais" />
+		</property>
+		<property name="carrera" type="string">
+			<column name="carrera" />
+		</property>
+		<property name="fecha_ins" type="date">
+			<column name="fecha_inscripcion" />
+		</property>
+		<property name="fecha_ingr" type="date">
+			<column name="fecha_ingreso" />
+		</property>
+		<property name="cohorte" type="integer">
+			<column name="cohorte" />
+		</property>
+		<property name="regular" type="string">
+			<column name="regular" />
+		</property>
+		<property name="calidad" type="string">
+			<column name="calidad" />
+		</property>
+		<property name="procesado" type="boolean">
+			<column name="procesado" />
+		</property>
+		<property name="actualizar" type="boolean">
+			<column name="actualizar" />
+		</property>
+		<property name="tipo" type="string">
+			<column name="tipo" />
+		</property>
+		<property name="email" type="string">
+			<column name="email" />
+		</property>
+		<many-to-one name="persona" class="cuotas.model.domain.datos.Persona" fetch="select">
+            <column name="id_persona" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

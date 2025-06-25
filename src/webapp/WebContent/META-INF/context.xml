@@ -1,0 +1,22 @@
+<Context path="/Cuotas" docBase="Cuotas"
+          debug="5" reloadable="true" crossContext="true">
+
+        <Resource
+                auth="Container"
+                description="DB Conexion-MySQL Cuotas"
+                name="jdbc/CuotasDB"
+                type="javax.sql.DataSource"
+                password="cuotas"
+                driverClassName="com.mysql.jdbc.Driver"
+                maxIdle="5"
+                maxWait="5000"
+                username="cuotas"
+                url="jdbc:mysql://localhost:3306/cuotas?autoReconnect=true&amp;useUnicode=true&amp;"
+                validationQuery="select 1"
+                maxActive="10"/>
+
+        <WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+        <WatchedResource>META-INF/context.xml</WatchedResource>
+
+</Context>

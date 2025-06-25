@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="cuotas.model.domain.datos.Grupo" table="grupo" catalog="cuotas">
+        <id name="id" type="java.lang.Long">
+            <column name="idgrupo" />
+            <generator class="identity" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="Descri" />
+        </property>
+        <property name="anioCuota" type="java.lang.Integer">
+            <column name="AnoInicio" />
+        </property>
+        <property name="tipoInforme" type="java.lang.Integer">
+            <column name="TipoInforme" />
+        </property>
+        <property name="concepto1" type="string">
+            <column name="Concepto1" />
+        </property>
+        <property name="concepto2" type="string">
+            <column name="Concepto2" />
+        </property>
+        <property name="nombreTitulo" type="string">
+            <column name="nombre_titulo" />
+        </property>
+        <property name="ctrlPago" type="java.lang.Character">
+            <column name="CtrlPago" length="1" />
+        </property>
+        <property name="vtoDias" type="java.lang.Integer">
+            <column name="VtoDias" />
+        </property>
+        <property name="vtoPlus" type="java.lang.Integer">
+            <column name="VtoPlus" precision="2" scale="0" />
+        </property>
+        <property name="vtoMonto" type="java.lang.Double">
+            <column name="VtoMonto" precision="2" scale="0" />
+        </property>
+        <property name="conceptoUnoMonto" type="java.lang.Double">
+            <column name="conceptoUnoMonto" precision="2" scale="0" />
+        </property>
+        <property name="conceptoDosMonto" type="java.lang.Double">
+            <column name="conceptoDosMonto" precision="2" scale="0" />
+        </property>
+        <property name="comision" type="java.lang.Integer">
+            <column name="Comision" />
+        </property>
+		<property name="codigo" type="java.lang.Long">
+			<column name="codigo" />
+		</property>
+		<property name="numero" type="java.lang.Long">
+			<column name="numero" />
+		</property>
+		 <property name="cantidadCuotas" type="java.lang.Integer">
+            <column name="cantidadCuotas" />
+        </property>
+        <!-- 
+        <property name="tramiteGrado" type="java.lang.Character">
+            <column name="tramite_grado" length="1" />
+        </property>
+        <property name="tramitePosgrado" type="java.lang.Character">
+            <column name="tramite_posgrado" length="1" />
+        </property>
+         <property name="tramiteIngreso" type="java.lang.Character">
+            <column name="tramite_ingreso" length="1" />
+        </property>
+         -->
+		<component name="estado" class="common.model.domain.datos.Estado">
+			<property name="valor" type="string">
+				<column name="estado" not-null="true" />
+			</property>
+		</component>
+		<property name="cobraMora" type="java.lang.Character">
+            <column name="cobraMora" length="1" />
+        </property>
+        <set name="pagos" lazy="true" table="persona_cuotas" fetch="select"><!-- inverse="true"  -->
+            <key>
+                <column name="idgrupo"/>
+            </key>
+            <one-to-many class="cuotas.model.domain.datos.Pago" />
+        </set>        
+        <set name="cuotas" inverse="true" lazy="false" table="grupocuota" fetch="join" cascade="all-delete-orphan" >
+            <key>
+                <column name="idgrupo" />
+            </key>
+            <one-to-many class="cuotas.model.domain.datos.Cuota" />
+        </set>
+        <many-to-one name="carrera" class="cuotas.model.domain.datos.Carrera" fetch="select" lazy="false">
+            <column name="idcarrera" not-null="true" />
+        </many-to-one>
+		<many-to-one name="partida" class="cuotas.model.domain.datos.Partida" fetch="select">
+			<column name="idpartida" />
+		</many-to-one>
+		<many-to-one name="facturaItemTipo" class="cuotas.model.domain.factura.FacturaItemTipo" fetch="select">
+			<column name="id_cbr_tipos" />
+		</many-to-one>
+		<many-to-one name="facturaItemTipoMora" class="cuotas.model.domain.factura.FacturaItemTipo" fetch="select">
+			<column name="id_cbr_tipos_mora" />
+		</many-to-one>
+		<set name="usuariosGrupo" inverse="false" lazy="true" table="gruposusuario"   order-by="idgrupo"   fetch="select">
+			<key>
+				<column name="idgrupo" not-null="true" />
+			</key>
+			<many-to-many class="cuotas.model.domain.datos.UsuarioCuotas">
+				<column name="idusuario" not-null="true" />
+			</many-to-many>            
+		</set>
+    </class>
+</hibernate-mapping>

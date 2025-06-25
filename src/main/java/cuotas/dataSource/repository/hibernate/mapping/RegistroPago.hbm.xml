@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="cuotas.model.domain.interfaces.RegistroPago" table="pago_facil" catalog="cuotas">
+        <id name="id" type="java.lang.Long">
+            <column name="idpago_facil" />
+            <generator class="identity" />
+        </id>  
+        <property name="nro_colegio" type="java.lang.Integer">
+            <column name="colegio" />
+        </property>
+        <property name="colegio" type="string">
+            <column name="nombre" length="60" />
+        </property>
+        <property name="nro_persona" type="java.lang.Long">
+            <column name="numero_persona" />
+        </property> 
+        <property name="nro_grupo" type="java.lang.Long">
+            <column name="numero_cliente" />
+        </property>  
+         <component name="fecha" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="fecha" not-null="true" />
+        	</property>
+    	</component>  
+        <component name="fecha_pago" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="fecha_pago" not-null="true" />
+        	</property>
+    	</component>
+    	<component name="fecha_proc" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="fecha_proceso" not-null="true" />
+        	</property>
+    	</component>
+    	<component name="fecha_real" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="fecha_real" not-null="true" />
+        	</property>
+    	</component>
+        <property name="importe" type="java.lang.Double">
+            <column name="importe" precision="22" scale="0" />
+        </property>
+        <component name="vto_original" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="vto_original" not-null="true" />
+        	</property>
+    	</component>
+         <property name="periodo" type="java.lang.Integer">
+            <column name="periodo" />
+        </property> 
+        <property name="cod_barra" type="string">
+            <column name="codbarra" length="40" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="20" />
+        </property>
+        <property name="num_doc" type="string">
+            <column name="num_doc" length="20" />
+        </property>
+        <property name="tipo_doc" type="string">
+            <column name="tipo_doc" length="5" />
+        </property>
+    </class>
+</hibernate-mapping>

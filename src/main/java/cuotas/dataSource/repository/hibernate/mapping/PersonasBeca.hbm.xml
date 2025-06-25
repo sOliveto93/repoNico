@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+<class name="cuotas.model.domain.datos.PersonasBeca" table="personasbeca" catalog="cuotas">
+	<id name="id" type="java.lang.Long">
+			<column name="id_alumnos_carreras" />
+			<generator class="foreign">
+				<param name="property">inscripcion</param>
+			</generator>
+		</id>
+	<property name="descuentoBeca" type="java.lang.Integer">
+		<column name="descuentoBeca" />
+	</property>	
+
+	<one-to-one name="inscripcion" class="cuotas.model.domain.datos.Inscripcion"></one-to-one>
+	
+	<many-to-one name="beca" class="cuotas.model.domain.datos.Beca" fetch="select">
+		<column name="idbeca" />
+	</many-to-one>
+</class>
+</hibernate-mapping>

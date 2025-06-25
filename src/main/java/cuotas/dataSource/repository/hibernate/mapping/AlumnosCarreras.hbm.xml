@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="cuotas.model.domain.datos.Inscripcion" table="alumnos_carreras" catalog="cuotas">
+        <id name="id" type="java.lang.Long">
+            <column name="id_alumnos_carreras" />
+            <generator class="identity" />
+        </id>
+		<property name="NumeroCarrera" type="java.lang.Long">
+			<column name="carrera" />
+		</property>
+        <many-to-one name="carrera" class="cuotas.model.domain.datos.Carrera" fetch="select">
+            <column name="idcarrera" />
+        </many-to-one>
+        <many-to-one name="persona" class="cuotas.model.domain.datos.Persona" fetch="select" >
+            <column name="idpersonas" />
+        </many-to-one>
+        
+		<one-to-one name="personasBeca" class="cuotas.model.domain.datos.PersonasBeca" constrained="false"  cascade="save-update, delete"></one-to-one>
+        
+        <component name="fechaHoraInscripcionIngreso" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="fecha_hora_inscripcion_ingreso"  />
+        	</property>
+    	</component>
+        <property name="estado" type="java.lang.Character">
+            <column name="estado" length="1" />
+        </property>
+        <property name="cohorte" type="java.lang.Integer">
+            <column name="cohorte"  />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="common.model.domain.datos.PersonaGenerica" table="persona">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <discriminator column="discriminante" type="string"/>
+        <property name="apellido" type="string">
+            <column name="apellido" length="100" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="100" not-null="true" />
+        </property>
+        
+        <component name="celular" class="common.model.domain.datosPersonales.TelefonoCelular" >			
+		  <property name="numero" type="string">
+			<column name="celular" length="100" not-null="false" />
+		  </property>
+		</component>
+		<component name="telefono" class="common.model.domain.datosPersonales.TelefonoFijo" >			
+		  <property name="numero" type="string">
+			<column name="telefono" length="100" not-null="false" />
+		  </property>
+		</component>
+		<component name="telParticular" class="common.model.domain.datosPersonales.TelefonoFijo" >			
+		  <property name="numero" type="string">
+			<column name="telParticular" length="100" not-null="false" />
+		  </property>
+		</component>
+		<component name="otroTelefono" class="common.model.domain.datosPersonales.TelefonoFijo" >			
+		  <property name="numero" type="string">
+			<column name="otroTelefono" length="100" not-null="false" />
+		  </property>
+		</component>
+		<component name="fax" class="common.model.domain.datosPersonales.TelefonoFijo" >			
+		  <property name="numero" type="string">
+			<column name="fax" length="100" not-null="false" />
+		  </property>
+		</component>
+		
+        <component name="email" class="common.model.domain.mail.DireccionMail" >
+        	<property name="valor" type="string">
+	            <column name="email" />
+        	</property>
+        </component>
+		<component name="fechaNac" class="common.model.domain.fecha.FechaNacimiento" >
+        	<property name="fecha" type="date">
+            	<column name="fecha_nac" />
+        	</property>        	
+    	</component>
+        
+		<component name="documento" class="common.model.domain.datosPersonales.Documento" >			
+			<property name="numero" type="string">
+				<column name="nro_doc" length="10" not-null="false" />
+			</property>
+			<many-to-one name="tipo" class="common.model.domain.datosPersonales.TipoDocumento" >
+					<column name="tipo_doc" not-null="false" />
+			</many-to-one>
+		</component>
+		
+        <property name="direccion" type="string">
+            <column name="direccion" length="65535" />
+        </property>
+        <property name="notas" type="string">
+            <column name="notas" />
+        </property>
+        
+        <component name="estado" class="convenio.model.domain.datos.Estado" >
+        	<property name="valor" type="string">
+            	<column name="estado" length="45" not-null="true" />
+        	</property>        	
+    	</component>
+       
+        <subclass name="bean.Pasante" discriminator-value="PAS">        	
+	        <set name="carreras" inverse="false" lazy="true" table="persona_estudia" fetch="select">
+	            <key>
+	                <column name="idpersonas" not-null="true" />
+	            </key>
+	            <many-to-many entity-name="bean.Carrera">
+	                <column name="idcarrera" not-null="true" />
+	            </many-to-many>
+	        </set>
+	        <set name="pasantiasForIdPersonas" inverse="true" lazy="true" table="pasantia" fetch="select">
+	            <key>
+	                <column name="idpersonas" not-null="true" />
+	            </key>
+	            <one-to-many class="bean.Pasantia" />
+	        </set>	        
+    	</subclass>
+     
+        <subclass name="bean.Tutor" discriminator-value="TUTOR">
+	        <property name="tutorUnla" type="java.lang.Boolean">
+	            <column name="tutor_unla" />
+	        </property>  	        
+    	</subclass>
+    
+    	<subclass name="bean.ResponsableUNLa" discriminator-value="RESUN">
+	    	<many-to-one name="areaunla" class="bean.AreaUnla" fetch="select">
+	            <column name="idarea" />
+	        </many-to-one> 
+        	<set name="convenios" inverse="true" lazy="true" table="conv_resparea" fetch="select">
+	            <key>
+	                <column name="idresponsable" not-null="false" />
+	            </key>
+	            <many-to-many entity-name="bean.Convenio">
+	                <column name="idconvenio" not-null="true" />
+	            </many-to-many>
+	        </set>	        
+    	</subclass>
+    
+    	<subclass name="bean.ResponsableExt" discriminator-value="RESEX">
+	    	<many-to-one name="organismo" class="bean.Organismo" fetch="select">
+	            <column name="idorganismo" />
+	        </many-to-one>    		
+	        <set name="pasantiasForIdResponsableUnla" inverse="true" lazy="true" table="pasantia" fetch="select">
+	            <key>
+	                <column name="idresponsable_unla" not-null="false" />
+	            </key>
+	            <one-to-many class="bean.Pasantia" />
+	        </set>	        
+	        <set name="pasantiasForIdResponsableEmp" inverse="true" lazy="true" table="pasantia" fetch="select">
+	            <key>
+	                <column name="idresponsable_emp" not-null="true" />
+	            </key>
+	            <one-to-many class="bean.Pasantia" />
+	        </set>
+		    <set name="convenios" inverse="true" lazy="true" table="conv_contorga" fetch="select">
+	            <key>
+	                <column name="idresponsable" not-null="true" />
+	            </key>
+	            <many-to-many entity-name="bean.Convenio">
+	                <column name="idconvenio" not-null="true" />
+	            </many-to-many>
+	        </set>    
+	    </subclass>
+    </class>
+    <query name="buscarTodosPersona"><![CDATA[
+		Select c from Persona c order by c.apellido
+	]]></query>
+	<query name="buscarPasanteDNI"><![CDATA[
+		Select c from Pasante c where c.documento.numero like :dni order by c.apellido
+	]]></query>
+	
+	<query name="buscarTodosPasantesPorCarrera"><![CDATA[
+		Select c from Pasante c inner join c.carreras as car where car.id = :idcar  order by c.apellido
+	]]></query>
+	<query name="buscarTodosPasantes"><![CDATA[
+		Select c from Pasante c order by c.apellido 
+	]]></query>
+	<!-- 	
+	<query name="buscarTodosResponsablesExt"><![CDATA[
+		Select r2 from ResponsableExt r2 order by r2.apellido
+	]]></query>	
+	<query name="buscarTodosResponsablesUNLa"><![CDATA[
+		Select r1 from ResponsableUNLa r1  order by r1.apellido 
+	]]></query>
+	<query name="buscarResponsableIdExt"><![CDATA[
+		Select r from ResponsableExt r where id = :idpersonas  order by apellido 
+	]]></query>
+	<query name="buscarResponsableIdUNLa"><![CDATA[
+		Select r from ResponsableUNLa r where id = :idpersonas  order by apellido 
+	]]></query>
+	 -->
+	<query name="buscarResponsablesExtConvenio"><![CDATA[
+		Select r2 from ResponsableExt r2 inner join r2.organismo as org inner join org.orgVinculados ov inner join 
+				ov.convenio con where con.id = :idcon and ov.estado != 'desactivo' 
+		order by r2.apellido
+	]]></query>
+	<query name="buscarResponsablesUNLaConvenio"><![CDATA[
+		Select r2 from ResponsableUNLa r2 inner join r2.areaunla as area inner join area.convenios con
+			where con.id = :idcon
+		order by r2.apellido
+	]]></query>
+	
+	<!-- Select p from Personas p  order by p.apellido  -->
+</hibernate-mapping>

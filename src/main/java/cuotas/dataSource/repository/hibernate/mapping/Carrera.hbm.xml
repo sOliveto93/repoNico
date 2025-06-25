@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="cuotas.model.domain.datos.Carrera" table="carreras" catalog="cuotas">
+        <id name="id" type="java.lang.Long">
+            <column name="idcarrera" />
+            <generator class="identity" />
+        </id>
+        <property name="nombreCarrera" type="string">
+            <column name="nombre_carrera" />
+        </property>
+        <property name="nombreTitulo" type="string">
+            <column name="nombre_titulo" />
+        </property>
+        <property name="codigo" type="integer">
+            <column name="codigo" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="tipo" />
+        </property>
+		<component name="vigencia" class="common.model.domain.fecha.RangoFecha">
+			<component name="desde" class="common.model.domain.fecha.Fecha">
+				<property name="fecha" type="date">
+					<column name="vigencia_carrera_desde"/>
+				</property>
+			</component>
+			<component name="hasta" class="common.model.domain.fecha.Fecha">
+				<property name="fecha" type="date">
+					<column name="vigencia_carrera_hasta"/>
+				</property>
+			</component>
+		</component>
+		<component name="estado" class="common.model.domain.datos.Estado">
+	   		<property name="valor" type="string">
+	            <column name="estado" not-null="true" />
+    	    </property>
+   	    </component>
+        <set name="inscripciones" inverse="false" lazy="true" table="alumnos_carreras" fetch="select">
+            <key>
+                <column name="idcarrera" />
+            </key>
+            <one-to-many class="cuotas.model.domain.datos.Inscripcion" />
+        </set>
+        <set name="grupos" inverse="false" lazy="true" table="grupo" fetch="select" >
+            <key>
+                <column name="idcarrera" />
+            </key>
+            <one-to-many class="cuotas.model.domain.datos.Grupo" />
+        </set>
+		<set name="carrerasDep" inverse="false" lazy="true" table="mapeo_carreras_dep" fetch="select">
+			<key>
+				<column name="idcarrera" />
+			</key>
+			<one-to-many class="cuotas.model.domain.datos.CarreraDep" />
+		</set>
+    </class>
+	<!-- 
+     <query name="buscarCarreraNombre">
+		Select c from Carrera c where c.nombreCarrera like :nombre 	
+	</query>
+	-->
+</hibernate-mapping>

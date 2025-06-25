@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+<class name="cuotas.model.domain.datos.MapeoTipoDocumento" table="mapeo_tipo_doc" catalog="cuotas">
+	<id name="id" type="java.lang.Integer">
+		<column name="idMapeo" />
+		<generator class="identity" />
+	</id>
+	<property name="tipoDocumentoCuotas" type="string">
+		<column name="tipo_documento_cuotas"  length="2"/>
+	</property>
+	<property name="tipoDocumentoGuarani" type="string">
+		<column name="tipo_documento_guarani"  length="3"/>
+	</property>
+	<property name="tipoDocumentoCursos" type="string">
+		<column name="tipo_documento_cursos"  length="2"/>
+	</property>
+	
+</class>
+</hibernate-mapping>

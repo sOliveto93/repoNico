@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="cuotas.model.domain.factura.FacturaItemTipo" table="cbr_tipos" catalog="cuotas">
+        <id name="id" type="java.lang.Integer">
+            <column name="id_cbr_tipos" />
+            <generator class="identity" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="descri" />
+        </property>
+		<property name="codigo" type="java.lang.Integer">
+			<column name="codigo" />
+		</property>
+        <property name="precio" type="java.lang.Double">
+            <column name="precio" precision="22" scale="0" />
+        </property>
+		<component name="estado" class="common.model.domain.datos.Estado">
+			<property name="valor" type="string">
+				<column name="estado" not-null="true" />
+			</property>
+		</component>
+        <set name="cbrItems" inverse="true" lazy="true" table="cbr_item" fetch="select">
+            <key>
+                <column name="id_cbr_tipos" not-null="true" />
+            </key>
+            <one-to-many class="cuotas.model.domain.factura.FacturaItem" />
+        </set>
+        <set name="grupos"  lazy="false" table="grupo" fetch="select"><!-- inverse="true" -->
+			<key>
+				<column name="id_cbr_tipos" />
+			</key>
+			<one-to-many class="cuotas.model.domain.datos.Grupo"/>
+		</set>
+		<set name="grupos_mora" inverse="true" lazy="true" table="grupo" fetch="select">
+			<key>
+				<column name="id_cbr_tipos_mora" />
+			</key>
+			<one-to-many class="cuotas.model.domain.datos.Grupo"/>
+		</set>
+ 		<many-to-one name="rubroCobro" class="cuotas.model.domain.factura.RubroCobro" fetch="select" lazy="false">
+			<column name="id_cbr_rubro" not-null="true" />
+		</many-to-one>
+		<many-to-one name="partida" lazy="false" class="cuotas.model.domain.datos.Partida" fetch="select">
+			<column name="idpartida" />
+		</many-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!-- edited with XMLSpy v2007 (http://www.altova.com) by bpade (EMBRACE) -->
+<parametros>
+	<servidor>
+		<nombre>grado</nombre>
+		<ip>10.3.16.92</ip>
+		<puerto>1526</puerto>
+		<usuario>dba</usuario>
+		<password>preproduccion</password>
+		<bd>gradopre</bd>
+		<tipo>ol_desarrollo</tipo>		
+	</servidor>
+	<servidor>
+		<nombre>posgrado</nombre>
+		<ip>10.3.16.92</ip>
+		<puerto>1526</puerto>
+		<usuario>dba</usuario>
+		<password>preproduccion</password>
+		<bd>posgradopre</bd>
+		<tipo>ol_desarrollo</tipo>
+	</servidor>
+	<servidor>
+		<nombre>ingreso</nombre>
+		<ip>10.3.16.92</ip>
+		<puerto>1526</puerto>
+		<usuario>dba</usuario>
+		<password>preproduccion</password>
+		<bd>gradosdn</bd>
+		<tipo>ol_desarrollo</tipo>		
+	</servidor>
+</parametros>

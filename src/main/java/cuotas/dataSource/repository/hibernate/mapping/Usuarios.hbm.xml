@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="cuotas.model.domain.datos.UsuarioCuotas" table="usuarios" catalog="cuotas">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="usuario" type="string">
+            <column name="usuario" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" />
+        </property>
+		<property name="apellido" type="string">
+            <column name="apellido" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="tipo" />
+        </property>
+        <!--  -->
+		<set name="grupos" inverse="true"  table="gruposusuario" fetch="select" lazy="false">
+			<key>
+				<column name="idusuario" not-null="true" />
+			</key>
+			<many-to-many class="cuotas.model.domain.datos.Grupo">
+				<column name="idgrupo" not-null="true" />
+			</many-to-many>
+ 		</set>    
+        
+        
+	</class>
+</hibernate-mapping>

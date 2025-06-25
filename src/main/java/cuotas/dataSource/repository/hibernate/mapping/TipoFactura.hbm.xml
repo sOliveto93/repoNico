@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+<class name="cuotas.model.domain.factura.TipoFactura" table="tipofactura" catalog="cuotas">
+	<id name="id" type="java.lang.Integer">
+		<column name="idTipoFactura" />
+		<generator class="identity" />
+	</id>
+	<property name="descripcion" type="string">
+		<column name="descripcion" />
+	</property>	
+	<set name="facturas" inverse="true" lazy="true" table="cbr_fc" fetch="select">
+		<key>
+			<column name="idTipoFactura" />
+		</key>
+		<one-to-many class="cuotas.model.domain.factura.TipoFactura"/>
+	</set>
+</class>
+</hibernate-mapping>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="cuotas.model.domain.datos.Cuota" table="grupocuota" catalog="cuotas">
+        <id name="id" type="java.lang.Long">
+            <column name="idgrupocuota" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="grupo" class="cuotas.model.domain.datos.Grupo" fetch="select">
+            <column name="idgrupo" />
+        </many-to-one>
+        <many-to-one name="tipo" lazy="false" class="cuotas.model.domain.datos.TipoCuota" fetch="select">
+            <column name="tipo" />
+        </many-to-one>
+        <component name="Mes" class="common.model.domain.fecha.Mes">
+        	<property name="numero" type="java.lang.Integer">
+        		 <column name="NroMes" not-null="true" />
+        	</property>
+    	</component>
+        <property name="monto1" type="java.lang.Double">
+            <column name="Monto1" precision="22" scale="0" />
+        </property>
+        <property name="monto2" type="java.lang.Double">
+            <column name="Monto2" precision="22" scale="0" />
+        </property>
+   		<component name="estado" class="common.model.domain.datos.Estado">
+	   		<property name="valor" type="string">
+	            <column name="estado" not-null="true" />
+    	    </property>
+   	    </component>
+    </class>
+</hibernate-mapping>
+

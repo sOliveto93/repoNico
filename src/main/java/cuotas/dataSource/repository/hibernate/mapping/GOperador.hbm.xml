@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="cuotas.model.domain.grupo.GOperador" table="g_operador" catalog="cuotas">
+        <composite-id name="id" class="cuotas.model.domain.grupo.GOperadorId">
+            <key-property name="codigo" type="string">
+                <column name="codigo" length="6" />
+            </key-property>
+            <key-property name="descri" type="string">
+                <column name="descri" />
+            </key-property>
+            <key-property name="desprt" type="string">
+                <column name="desprt" />
+            </key-property>
+            <key-property name="mail" type="string">
+                <column name="mail" />
+            </key-property>
+            <key-property name="secreto" type="string">
+                <column name="secreto" />
+            </key-property>
+            <key-property name="categoria" type="string">
+                <column name="categoria" length="3" />
+            </key-property>
+            <key-property name="obser" type="string">
+                <column name="Obser" length="16777215" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

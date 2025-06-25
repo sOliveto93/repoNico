@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="cuotas.model.domain.factura.Factura" table="cbr_fc" catalog="cuotas">
+        <id name="id" type="java.lang.Integer">
+            <column name="id_cbr_fc" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="persona" class="cuotas.model.domain.datos.Persona" fetch="select">
+            <column name="idpersonas" />
+        </many-to-one>
+        <many-to-one name="sucursalCobro" class="cuotas.model.domain.factura.SucursalCobro" fetch="select">
+            <column name="id_cbr_sucu" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoPago" class="cuotas.model.domain.factura.TipoPago" fetch="select" lazy="false">
+            <column name="idTipoPago" />
+        </many-to-one>
+        <many-to-one name="formaPago" class="cuotas.model.domain.factura.FormaPago" fetch="select">
+            <column name="idFormaPago" />
+        </many-to-one>
+		<many-to-one name="tipoFactura" class="cuotas.model.domain.factura.TipoFactura" fetch="select">
+            <column name="idTipoFactura" />
+        </many-to-one>
+        <property name="nro" type="java.lang.Integer">
+            <column name="Nro" />
+        </property>
+        <property name="descripcionBasica" type="string">
+            <column name="Descri1" />
+        </property>
+        <property name="descripcionExtendida" type="string">
+            <column name="descri2" />
+        </property>
+        <!--agregadando cuit y razonSocial  -->
+        <property name="responsableIva" type="string">
+            <column name="responsableIva" />
+        </property>
+        <property name="razonSocial" type="string">
+            <column name="razonSocial" />
+        </property>
+		<component name="fechaPago" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="fecha" not-null="true" />
+        	</property>
+    	</component>
+        <property name="monto" type="java.lang.Double">
+            <column name="monto" precision="22" scale="0" />
+        </property>
+        <property name="pagado1" type="java.lang.Double">
+            <column name="Pagado1" precision="22" scale="0" />
+        </property>
+        <property name="operador" type="string">
+            <column name="Oper" length="6" />
+        </property>
+        <component name="fechaCarga" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="fecar" not-null="true" />
+        	</property>
+    	</component>
+        <property name="comision" type="java.lang.Integer">
+            <column name="comision" />
+        </property>
+		<component name="carrera" class="cuotas.model.domain.datos.Carrera">
+			<property name="id" type="java.lang.Long">
+            	<column name="idcarrera" not-null="true" />
+        	</property>
+		</component>
+		<!-- 
+        <property name="formaPago" type="java.lang.Integer">
+            <column name="fpago" />
+        </property>
+         -->
+        
+        <set name="FacturaItems" inverse="true" lazy="true" table="cbr_item" fetch="select" cascade="save-update">
+            <key>
+                <column name="id_cbr_fc" not-null="true" />
+            </key>
+            <one-to-many class="cuotas.model.domain.factura.FacturaItem" />
+        </set>
+        <component name="estado" class="common.model.domain.datos.Estado">
+	   		<property name="valor" type="string">
+	            <column name="estado" not-null="true" />
+    	    </property>
+   	    </component>
+    </class>
+    <query name="buscarUltimoNumeroFactura"><![CDATA[
+		Select MAX(f.nro) from Factura f where tipoPago = :tipoPago
+	]]></query>
+</hibernate-mapping>

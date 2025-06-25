@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="cuotas.model.domain.datos.Persona" table="personas" catalog="cuotas">
+        <id name="id" type="java.lang.Long">
+            <column name="idPersona" />
+            <generator class="identity" />
+        </id>
+		<property name="nombre" type="string" lazy="false">
+			<column name="nombre" />
+		</property>
+		<property name="apellido" type="string" lazy="false">
+			<column name="apellido" />
+		</property>
+		<property name="mail" type="string" lazy="false">
+			<column name="mail" />
+		</property>
+		<property name="password" type="string" lazy="false">
+			<column name="password" />
+		</property>
+		
+		<property name="habilitadoTodoPago" type="string" lazy="false">
+			<column name="habilitado_todo_pago" />
+		</property>
+		
+		<component name="documento" class="common.model.domain.datosPersonales.Documento">
+			<component name="tipo" class="common.model.domain.datosPersonales.TipoDocumento">
+				<property name="abreviacion" type="string">
+					<column name="tipo_documento" length="2" />
+				</property>
+			</component>
+			<property name="numero" type="java.lang.String">
+				<column name="nro_documento" />
+			</property>
+		</component>
+		
+        <component name="direccion" class="common.model.domain.datosPersonales.Domicilio">
+			<property name="calle" type="string">
+				<column name="calle" />
+			</property>
+	        <property name="localidad" type="string">
+	            <column name="localidad" />
+	        </property>
+	        <property name="pcia" type="string">
+	            <column name="provincia" />
+	        </property>
+	        <property name="cp" type="string">
+	            <column name="codigo_postal" />
+	        </property>
+	        <property name="pais" type="string">
+	            <column name="pais" />
+	        </property>
+			<property name="numero" type="java.lang.String">
+				<column name="numero" />
+			</property>
+			<property name="piso" type="java.lang.Integer">
+				<column name="piso" />
+			</property>
+			<property name="depto" type="string">
+				<column name="depto" />
+			</property>
+        </component>
+        <component name="telParticular" class="common.model.domain.datosPersonales.TelefonoFijo">
+        	<property name="numero" type="string">
+            	<column name="telefono_particular" />
+        	</property>
+		</component>
+		<component name="telefono" class="common.model.domain.datosPersonales.TelefonoFijo">
+			<property name="numero" type="string">
+				<column name="telefono" />
+			</property>
+		</component>
+		<component name="fechaIngreso" class="common.model.domain.fecha.Fecha">
+			<property name="fecha" type="date">
+        		 <column name="fecha_ingreso" />
+			</property>        	
+		</component>
+		<property name="fondoBeca1" type="java.lang.Integer">
+			<column name="Fondo_beca1" />
+		</property>
+        <component name="feUtlPago" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="Fe_UtlPago"/>
+        	</property>        	
+    	</component> 
+    	
+        <component name="fePago01" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="Fe_Pago01"/>
+        	</property>        	
+    	</component> 
+         <component name="fePago01tipo" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="Fe_Pago01tipo"/>
+        	</property>        	
+    	</component> 
+         <component name="fePago02" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="Fe_Pago02"/>
+        	</property>        	
+    	</component>
+
+         <component name="fePgoA" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="Fe_PgoA"/>
+        	</property>        	
+    	</component>
+    	
+        <property name="fePgoB" type="java.lang.Character">
+            <column name="Fe_pgoB" length="1" />
+        </property>
+        <property name="sedes" type="java.lang.Character">
+            <column name="Sedes" length="1" />
+        </property>
+        <property name="legajoPosgrado" type="java.lang.String">
+            <column name="legajo_posgrado"/>
+        </property>
+        <property name="legajoGrado" type="java.lang.String">
+            <column name="legajo_grado"/>
+        </property>
+         <property name="iddep" type="java.lang.String">
+            <column name="id_dep"/>
+        </property>
+        <property name="nro_inscripcion" type="java.lang.String">
+            <column name="Siu_inscrip"/>
+        </property>  
+		   
+   		<component name="estado" class="common.model.domain.datos.Estado">
+	   		<property name="valor" type="string">
+	            <column name="estado" not-null="true" />
+    	    </property>
+   	    </component>
+        <set name="inscripciones" inverse="true" cascade="all" lazy="true" table="alumnos_carreras" fetch="select" >
+            <key>
+                <column name="idpersonas" />
+            </key>
+            <one-to-many class="cuotas.model.domain.datos.Inscripcion" />
+        </set>
+        <!-- VER !!-->
+        <set name="pagos" inverse="true" lazy="true" table="persona_cuotas" fetch="select" order-by="idgrupo, fecha">
+            <key>
+                <column name="idpersonas" />
+            </key>
+            <one-to-many class="cuotas.model.domain.datos.Pago" />
+        </set> 
+        <set name="importados" inverse="true" lazy="true" table="guarani" fetch="select">
+            <key>
+                <column name="id_persona" />
+            </key>
+            <one-to-many class="cuotas.model.domain.interfaces.Guarani" />
+        </set>  
+        <set name="facturas" inverse="true" lazy="true" table="cbr_fc" fetch="select" order-by="id_cbr_fc">
+            <key>
+                <column name="idpersonas" />
+            </key>
+            <one-to-many class="cuotas.model.domain.factura.Factura" />
+        </set>
+    </class>
+</hibernate-mapping>

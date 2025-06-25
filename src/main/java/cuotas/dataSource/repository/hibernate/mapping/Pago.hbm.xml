@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2012 12:24:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="cuotas.model.domain.datos.Pago" table="persona_cuotas" catalog="cuotas">
+        <id name="id" type="java.lang.Long">
+            <column name="id_persona_cuota" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="origenPago" class="cuotas.model.domain.datos.OrigenPago" fetch="select">
+            <column name="idOrigenPago" />
+        </many-to-one>
+        <many-to-one name="grupo"  class="cuotas.model.domain.datos.Grupo" lazy="false" fetch="select">
+            <column name="idgrupo" />
+        </many-to-one>
+        <many-to-one name="persona" class="cuotas.model.domain.datos.Persona" lazy="false" fetch="select">
+            <column name="idpersonas" />
+        </many-to-one>
+        
+       <!--  <many-to-one name="usuario" class="cuotas.model.domain.datos.UsuarioCuotas" lazy="false" fetch="select">
+            <column name="id" />
+        </many-to-one> -->
+        
+        <property name="usuario" type="string">
+            <column name="usuario" />
+        </property>
+        
+        <set name="codigosAnteriores" inverse="true" cascade="save-update, delete" lazy="true" table="codigos_anteriores"  fetch="select" >
+            <key>
+                <column name="id_persona_cuota" />
+            </key>
+            <one-to-many class="cuotas.model.domain.datos.CodigosAnteriores" />
+        </set>
+        
+        <many-to-one name="facturaItem" class="cuotas.model.domain.factura.FacturaItem" fetch="select">
+            <column name="id_cbr_item" />
+        </many-to-one>
+        
+        <property name="ano" type="java.lang.Integer">
+            <column name="Ano" />
+        </property>
+        <property name="observaciones" type="string">
+            <column name="Obs" />
+        </property>
+        
+        <property name="estadoTodoPago" type="string">
+            <column name="estado_todopago" />
+        </property>
+        <property name="codigoTodoPago" type="string">
+            <column name="codigo_todopago" />
+        </property>
+        
+        <property name="tipo" type="string">
+            <column name="tipo" />
+        </property>
+        <component name="fecha" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="fecha" />
+        	</property>
+    	</component>
+        <property name="monto1" type="java.lang.Double">
+            <column name="monto1" precision="22" scale="0" />
+        </property>
+        <property name="monto2" type="java.lang.Double">
+            <column name="monto2" precision="22" scale="0" />
+        </property>
+         <property name="vtoMonto" type="java.lang.Double">
+            <column name="vtoMonto" precision="22" scale="0" />
+        </property>
+         <property name="procesado" type="boolean">
+            <column name="procesado" />
+        </property>
+        <component name="fechaPgo" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="fechaPgo" />
+        	</property>
+    	</component>
+        <property name="oper" type="string">
+            <column name="Oper" length="6" />
+        </property>
+        <property name="codigo_barra" type="string">
+            <column name="codigo_barra" length="45" />
+        </property>
+        <property name="monPgo" type="java.lang.Double">
+            <column name="monPgo" precision="22" scale="0" />
+        </property>
+        <property name="numero" type="java.lang.Integer">
+            <column name="numero" />
+        </property>
+        <property name="dadodebaja" type="boolean">
+            <column name="dadodebaja" />
+        </property>
+        <property name="codigo_usuario" type="string">
+			<column name="codigo_usuario" length="9" />
+        </property>
+		<property name="exceptuarMora" type="boolean">
+            <column name="exceptuar_mora" />
+        </property>
+        <component name="fePgoCarga" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="fePgoCarga"  />
+        	</property>
+    	</component>
+    	<component name="fechaCreacion" class="common.model.domain.fecha.Fecha">
+        	<property name="fecha" type="date">
+        		 <column name="fecha_creacion"  />
+        	</property>
+    	</component>
+    	<!-- 
+    	 <property name="montoMora" type="java.lang.Double">
+            <column name="montoMora" precision="22" scale="0" />
+        </property>
+         -->
+    	<component name="estado" class="common.model.domain.datos.Estado">
+	   		<property name="valor" type="string">
+	            <column name="estado" not-null="true" />
+    	    </property>
+   	    </component>
+    </class>
+</hibernate-mapping>
